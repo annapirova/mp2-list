@@ -107,14 +107,45 @@
   Node* List::GetHead() { return head;}
   void List::Inverse()
   {
+	  Node *tmp = head;
+	  Node* head2;
+	  head2 = new Node(tmp->data, NULL);
+	  tmp = tmp->next;
+	  while (tmp != NULL)
+	  {
+		  head2 = new Node(tmp->data, head2);
+		  tmp = tmp->next;
+	  }
+	  head = head2;
   }
   List List::Merge(Node* node, const List& list2)
   {
-	  return *this;
+	  List list3 = *this;
+	  Node*tmp = list3.head, *n, *tmp2 = list2.head;
+	  while (tmp != node)
+	  {
+		  tmp = tmp->next;
+	  }
+	  n = tmp->next;
+	  while (tmp2 != NULL)
+	  {
+		  tmp->next = new Node(tmp2->data, tmp2->next);
+		  tmp = tmp->next;
+		  tmp2 = tmp2->next;
+	  }
+	  tmp->next = n;
+	  return list3;
   }  
   List List::Merge(const List& list2)
   {
-	  return *this;
+	  List list3 = *this;
+	  Node* tmp = list3.head;
+	  while (tmp->next!= NULL)
+	  {
+		  tmp = tmp->next;
+	  }
+	  tmp->next = list2.head;
+	  return list3;
   }
   ostream& operator<<(ostream& os, const List& l)
   {
