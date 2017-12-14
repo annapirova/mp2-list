@@ -46,18 +46,19 @@
   void List::Delete(const DataType& d)
   {
 	  Node* tmp = head, *prev=NULL;
-	  while (tmp!=NULL)
+	  if (tmp == NULL)
+		  return;
+	  while ((tmp != NULL)&&(tmp->data!=d))
 	  {
-		  prev->next = tmp;
-		  if(tmp->data==d)
-		  {
-			  prev->next = tmp->next;
-			  delete tmp;
-			  tmp = prev->next;
-		  }
-		  else 
-		  { tmp = tmp->next; }
+		  prev = tmp;
+		  tmp = tmp->next;
 	  }
+		  if(prev!=NULL)
+			  prev->next = tmp->next; 
+		  else 
+			  head = tmp->next; 
+		  delete tmp;
+	  
   }
   Node* List::Search(const DataType& d)
   {
@@ -75,7 +76,14 @@
   }
   void List::Clean()
   {
-	 
+	  Node *tmp, *n;
+	  while (tmp->next != NULL)
+	  {
+		  n = tmp->next->next;
+		  delete tmp->next;
+		  tmp->next = n;
+	  }
+	  delete tmp;
   }
   int List::GetSize()
   {
@@ -97,4 +105,15 @@
   }  
   List List::Merge(const List& list2)
   {
+  }
+  ostream& operator<<(ostream& os, const List& l)
+  {
+	  List list;
+	  Node*tmp = list.head;
+	  while (tmp != NULL)
+	  {
+		  cout << tmp->data << " ";
+		  tmp = tmp->next;
+	  }
+
   }
