@@ -14,6 +14,7 @@ struct Node
 
   Node(DataType d = 0, Node* n = NULL);
   Node(const Node& node2);
+  Node operator=(const Node& node2);
   bool operator==(const Node& node2) const;
 };
 
@@ -21,8 +22,9 @@ class List
 {
   // любые поля
   Node* head;
+  Node* tail;
 public:
-  List();
+	List() {};
   List(const List& list2);
   List& operator=(const List& list2);
   ~List();
