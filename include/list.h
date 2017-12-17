@@ -12,6 +12,7 @@ struct Node
   Node* next;
 public:
   Node();
+  ~Node() {};
   Node (DataType val, Node* n) 
   {
 	  data = val;
