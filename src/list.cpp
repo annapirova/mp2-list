@@ -1,7 +1,26 @@
 #include "list.h"
+Node::Node()
+{
+	next = NULL;
+}
+List::List()
+{
+	head = NULL;
+}
   List::List(const List& list2)
- {
-	  head = list2.head;
+  {
+	  if (list2.head == NULL)
+		  head = NULL;
+	  else
+	  {
+		  Node* tmp1 = head, *tmp2 = list2.head;
+		  while (tmp2 != NULL)
+		  {
+			  tmp1 = new Node(tmp2->data, tmp2->next);
+			  tmp1 = tmp1->next;
+			  tmp2 = tmp2->next;
+		  }
+	  }
  }
    Node& Node::operator=(const Node& node2)
    {
@@ -9,23 +28,46 @@
 	   next = node2.next;
 	   return *this;
    }
+   bool Node::operator==(const Node& node2) const
+   {
+	   if (data != node2.data)
+		   return false;
+	   else return true;
+   }
+   bool List::operator==(const List& list2) const
+   {
+	   Node *tmp1 = head, *tmp2 = list2.head;
+	   while (tmp1 != NULL)
+	   {
+		   if (tmp1->data != tmp2->data)
+			   return false;
+		   tmp1 = tmp1->next;
+		   tmp2 = tmp2->next;
+	   }
+	   if (tmp2 != NULL)
+		   return false;
+	   return true;
+
+   }
    List& List::operator=(const List& list2)
    {
-	  Node* tmp1 = head, *tmp2 = list2.head;
-	  while (tmp2 != NULL)
-	  {
-		  tmp1 = new Node(tmp2->data, tmp2->next);
-		  tmp1 = tmp1->next;
-		  tmp2 = tmp2->next;
-	  }
-	  return *this;
+	   if (head != NULL)
+		   this->Clean();
+	   Node* tmp1 = head, *tmp2 = list2.head;
+	   while (tmp2 != NULL)
+	   {
+		   tmp1 = new Node(tmp2->data, tmp2->next);
+		   tmp1 = tmp1->next;
+		   tmp2 = tmp2->next;
+	   }
+	   return *this;
    }
- void List::InserToHead(const DataType& d)
+ void List::InsertToHead(const DataType& d)
  {
 	 Node* tmp = head;
 	 head = new Node (d,tmp);
  }
-  void List::InserToTail(const DataType& d)
+  void List::InsertToTail(const DataType& d)
   {
 	  Node*tmp = head;
 	  if (head==NULL)
@@ -42,6 +84,8 @@
   }
   void List::InsertAfter(Node* node, const DataType& d)
   {
+	  if (head == NULL)
+		  throw "Can't insert to empty list.";
 	  Node*tmp = head, *n;
 	  while (tmp!=node)
 	  {
@@ -84,7 +128,9 @@
   }
   void List::Clean()
   {
-	  Node *tmp, *n;
+	  if (head == NULL)
+		  return;
+	  Node *tmp = head, *n;
 	  while (tmp->next != NULL)
 	  {
 		  n = tmp->next->next;
@@ -107,6 +153,8 @@
   Node* List::GetHead() { return head;}
   void List::Inverse()
   {
+	  if ((head == NULL) || (head->next == NULL))
+		  return;
 	  Node *tmp = head;
 	  Node* head2;
 	  head2 = new Node(tmp->data, NULL);
@@ -120,6 +168,8 @@
   }
   List List::Merge(Node* node, const List& list2)
   {
+	  if (head == NULL)
+		  return list2;
 	  List list3 = *this;
 	  Node*tmp = list3.head, *n, *tmp2 = list2.head;
 	  while (tmp != node)
@@ -138,6 +188,8 @@
   }  
   List List::Merge(const List& list2)
   {
+	  if (head == NULL)
+		  return list2;
 	  List list3 = *this;
 	  Node* tmp = list3.head;
 	  while (tmp->next!= NULL)
