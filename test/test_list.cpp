@@ -147,7 +147,7 @@ TEST_F(EmptyList, merge_two_empty_lists_is_correct)
 TEST_F(EmptyList, can_merge_after_ptr_for_two_empty_lists)
 {
   List l2;
-  ASSERT_NO_THROW(l.Merge(l.GetHead(), l2)); // ? тут неоднозначно. Ѕудем считать, что исключени¤ нет, список не мен¤етс¤
+  ASSERT_NO_THROW(l.Merge(l.GetHead(), l2)); 
 }
 
 TEST_F(EmptyList, merge_after_ptr_for_two_empty_lists_is_correct)
@@ -194,7 +194,6 @@ TEST_F(ThreeNodesList, can_copy_not_empty_list)
 TEST_F(ThreeNodesList, copy_of_not_empty_list_is_correct)
 {
   List l2(l);
-  // так написано, т.к. предполагаем, что == еще не реализовано или не работает
   EXPECT_EQ(1, l2.GetHead()->data);
   EXPECT_EQ(2, l2.GetHead()->next->data);
   EXPECT_EQ(3, l2.GetHead()->next->next->data);
@@ -239,7 +238,7 @@ TEST_F(ThreeNodesList, can_insert_after_ptr_for_not_empty_list)
   ASSERT_NO_THROW(l.InsertAfter(p, 5));
 }
 
-TEST_F(ThreeNodesList, insert_after_ptr_for_not_empty_list_is_correct)
+TEST_F(ThreeNodesList, insert_after_ptr_for_not_empty_list_is_correct) 
 {
   Node* p = l.GetHead()->next;
   l.InsertAfter(p, 5);
@@ -247,9 +246,10 @@ TEST_F(ThreeNodesList, insert_after_ptr_for_not_empty_list_is_correct)
   EXPECT_EQ(2, l.GetHead()->next->data);
   EXPECT_EQ(5, l.GetHead()->next->next->data);
   EXPECT_EQ(3, l.GetHead()->next->next->next->data);
-  EXPECT_EQ(NULL, l.GetHead()->next->next->next->data);
-}
-
+  EXPECT_EQ(NULL, l.GetHead()->next->next->next->next/*->data*/); // Добавил еще один next, а то для 3 и NULL были одинаковые указатели! 
+}															  // И надо из последнего сравнения обрать data, потому что у нас элемент 3 указывает на NULL,
+															  // а для NULL мы не используем память и поэтому у нас нет data и next для него
+															  // Если убрать, то у нас для сравнивается NULL и значение звена NULL (NULL->data), но такого объекта даже нет
 TEST_F(ThreeNodesList, can_delete_head_from_not_empty_list)
 {
   ASSERT_NO_THROW(l.Delete(1));
@@ -289,7 +289,6 @@ TEST_F(ThreeNodesList, can_delete_not_a_member_from_not_empty_list2)
   EXPECT_EQ(3, l.GetHead()->next->next->data);
   EXPECT_EQ(NULL, l.GetHead()->next->next->next);
 }
-
 
 TEST_F(ThreeNodesList, can_search_for_not_empty_list)
 {
@@ -363,7 +362,7 @@ TEST_F(ThreeNodesList, can_assign_two_not_empty_lists_of_eq_size)
   EXPECT_EQ(11, l.GetHead()->data);
   EXPECT_EQ(22, l.GetHead()->next->data);
   EXPECT_EQ(33, l.GetHead()->next->next->data);
-  EXPECT_EQ(NULL, l.GetHead()->next->next);
+  EXPECT_EQ(NULL, l.GetHead()->next->next->next); // не хватало еще одного next
 }
 
 TEST_F(ThreeNodesList, compare_two_eq_lists_is_correct)
@@ -371,7 +370,6 @@ TEST_F(ThreeNodesList, compare_two_eq_lists_is_correct)
   List l2(l);
   EXPECT_EQ(true, l == l2);
 }
-
 
 class TwoListsTest : public testing::Test
 {
@@ -512,7 +510,6 @@ TEST_F(TwoListsTest, merge_after_null_ptr_for_not_empty_list_is_correct)
     List l3 = l.Merge(NULL, l2);
     EXPECT_EQ(l, l3);
 }
-
 
 TEST(List, inverse_of_one_node_list_is_correct)
 {
