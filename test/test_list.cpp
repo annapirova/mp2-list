@@ -238,17 +238,18 @@ TEST_F(ThreeNodesList, can_insert_after_ptr_for_not_empty_list)
   ASSERT_NO_THROW(l.InsertAfter(p, 5));
 }
 
-//TEST_F(ThreeNodesList, insert_after_ptr_for_not_empty_list_is_correct) 
-//{
-//  Node* p = l.GetHead()->next;
-//  l.InsertAfter(p, 5);
-//
-//  EXPECT_EQ(2, l.GetHead()->next->data);
-//  EXPECT_EQ(5, l.GetHead()->next->next->data);
-//  EXPECT_EQ(3, l.GetHead()->next->next->next->data);
-//  EXPECT_EQ(NULL, l.GetHead()->next->next->next->next->data); // добавил еще один next, а то для 3 и NULL были одинаковые указатели!
-//}
+TEST_F(ThreeNodesList, insert_after_ptr_for_not_empty_list_is_correct) 
+{
+  Node* p = l.GetHead()->next;
+  l.InsertAfter(p, 5);
 
+  EXPECT_EQ(2, l.GetHead()->next->data);
+  EXPECT_EQ(5, l.GetHead()->next->next->data);
+  EXPECT_EQ(3, l.GetHead()->next->next->next->data);
+  EXPECT_EQ(NULL, l.GetHead()->next->next->next->next/*->data*/); // Добавил еще один next, а то для 3 и NULL были одинаковые указатели! 
+}															  // И надо из последнего сравнения обрать data, потому что у нас элемент 3 указывает на NULL,
+															  // а для NULL мы не используем память и поэтому у нас нет data и next для него
+															  // Если убрать, то у нас для сравнивается NULL и значение звена NULL (NULL->data), но такого объекта даже нет
 TEST_F(ThreeNodesList, can_delete_head_from_not_empty_list)
 {
   ASSERT_NO_THROW(l.Delete(1));

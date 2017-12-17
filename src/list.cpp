@@ -2,6 +2,7 @@
 
 Node::Node()
 {
+	data = NULL;
 	next = NULL;
 }
 
