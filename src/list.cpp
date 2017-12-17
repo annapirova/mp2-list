@@ -1,6 +1,7 @@
 #include "list.h"
 Node::Node()
 {
+	data = NULL;
 	next = NULL;
 }
 List::List()
@@ -23,7 +24,20 @@ List::~List()
 }
   List::List(const List& list2)
   {
-	  head = list2.head;
+	  if (list2.head == NULL)
+	  {
+		  head = list2.head;
+	  }
+	  else
+	  {
+		  Node* tmp1 = head, *tmp2 = list2.head;
+		  while (tmp2 != NULL)
+		  {
+			  tmp1 = new Node(tmp2->data, tmp2->next);
+			  tmp1 = tmp1->next;
+			  tmp2 = tmp2->next;
+		  }
+	  }
  }
    Node& Node::operator=(const Node& node2)
    {
@@ -56,7 +70,21 @@ List::~List()
    {
 	   if (this != &list2)
 	   {
-		   head = list2.head;
+		   if (list2.head == NULL)
+		   {
+			   head = list2.head;
+			   return *this;
+		   }
+		   else
+		   {
+			   Node* tmp1 = head, *tmp2 = list2.head;
+			   while (tmp2 != NULL)
+			   {
+				   tmp1 = new Node(tmp2->data, tmp2->next);
+				   tmp1 = tmp1->next;
+				   tmp2 = tmp2->next;
+			   }
+		   }
 	   }
 	   return *this;
    }
@@ -136,6 +164,7 @@ List::~List()
 		  tmp->next = n;
 	  }
 	  delete tmp;
+	  head = NULL;
   }
   int List::GetSize()
   {
