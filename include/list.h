@@ -12,7 +12,6 @@ struct Node
   Node* next;
 public:
   Node();
-  ~Node() { delete next; }
   Node (DataType val, Node* n) 
   {
 	  data = val;
@@ -30,7 +29,7 @@ class List
 public:
   List();
   List(const List& list2);
-  ~List() { delete head;}
+  ~List();
   List& operator=(const List& list2);
   void InsertToHead(const DataType& d); // вставить элемент d первым
   void InsertToTail(const DataType& d); // вставить элемент d последним

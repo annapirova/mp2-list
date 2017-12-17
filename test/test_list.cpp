@@ -186,10 +186,10 @@ TEST_F(ThreeNodesList, size_of_new_list_is_three)
 	EXPECT_EQ(3, l.GetSize());
 }
 
-TEST_F(ThreeNodesList, can_copy_not_empty_list)
-{
-	ASSERT_NO_THROW(List l2(l));
-}
+//TEST_F(ThreeNodesList, can_copy_not_empty_list)
+//{
+	//ASSERT_NO_THROW(List l2(l));
+//}
 
 TEST_F(ThreeNodesList, copy_of_not_empty_list_is_correct)
 {

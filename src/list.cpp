@@ -7,20 +7,23 @@ List::List()
 {
 	head = NULL;
 }
+List::~List()
+{
+	Node*tmp1 = head, *tmp2;
+	if (head != NULL)
+	{
+		while (tmp1 != NULL)
+		{
+			tmp2 = tmp1->next;
+			delete tmp1;
+			tmp1 = tmp2;
+		}
+	}
+
+}
   List::List(const List& list2)
   {
-	  if (list2.head == NULL)
-		  head = NULL;
-	  else
-	  {
-		  Node* tmp1 = head, *tmp2 = list2.head;
-		  while (tmp2 != NULL)
-		  {
-			  tmp1 = new Node(tmp2->data, tmp2->next);
-			  tmp1 = tmp1->next;
-			  tmp2 = tmp2->next;
-		  }
-	  }
+	  head = list2.head;
  }
    Node& Node::operator=(const Node& node2)
    {
@@ -51,14 +54,9 @@ List::List()
    }
    List& List::operator=(const List& list2)
    {
-	   if (head != NULL)
-		   this->Clean();
-	   Node* tmp1 = head, *tmp2 = list2.head;
-	   while (tmp2 != NULL)
+	   if (this != &list2)
 	   {
-		   tmp1 = new Node(tmp2->data, tmp2->next);
-		   tmp1 = tmp1->next;
-		   tmp2 = tmp2->next;
+		   head = list2.head;
 	   }
 	   return *this;
    }
