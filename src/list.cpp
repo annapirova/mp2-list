@@ -77,6 +77,7 @@ List::~List()
 		   }
 		   else
 		   {
+			   this->Clean();
 			   Node* tmp1 = head, *tmp2 = list2.head;
 			   while (tmp2 != NULL)
 			   {
