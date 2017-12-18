@@ -247,7 +247,7 @@ TEST_F(ThreeNodesList, insert_after_ptr_for_not_empty_list_is_correct)
   EXPECT_EQ(2, l.GetHead()->next->data);
   EXPECT_EQ(5, l.GetHead()->next->next->data);
   EXPECT_EQ(3, l.GetHead()->next->next->next->data);
-  EXPECT_EQ(NULL, l.GetHead()->next->next->next->data);
+  EXPECT_EQ(NULL, l.GetHead()->next->next->next->next);
 }
 
 TEST_F(ThreeNodesList, can_delete_head_from_not_empty_list)
@@ -363,7 +363,7 @@ TEST_F(ThreeNodesList, can_assign_two_not_empty_lists_of_eq_size)
   EXPECT_EQ(11, l.GetHead()->data);
   EXPECT_EQ(22, l.GetHead()->next->data);
   EXPECT_EQ(33, l.GetHead()->next->next->data);
-  EXPECT_EQ(NULL, l.GetHead()->next->next);
+  EXPECT_EQ(NULL, l.GetHead()->next->next->next);
 }
 
 TEST_F(ThreeNodesList, compare_two_eq_lists_is_correct)
@@ -502,7 +502,7 @@ TEST_F(TwoListsTest, merge_after_ptr_for_not_empty_list_and_empty_list_is_correc
     EXPECT_EQ(l, l3);
 }
 
-TEST_F(TwoListsTest, merge_after_null_ptr_for_not_empty_list_is_correct)
+TEST_F(TwoListsTest, can_merge_after_null_ptr_for_not_empty_list)
 {
     ASSERT_NO_THROW(l.Merge(NULL, l2));
 }
