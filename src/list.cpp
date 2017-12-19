@@ -37,47 +37,54 @@ List::List(const List& list2)
 
 List& List::operator=(const List& list2)
 {
-	Clean();
-	if (list2.head)
+	if (head != list2.head)
 	{
-		Node* cur = new Node(list2.head->data);
-		Node* temp = list2.head;
-		head = cur;
-		while (temp->next)
+		Clean();
+		if (list2.head)
 		{
-			temp = temp->next;
-			cur->next = new Node(temp->data);
-			cur = cur->next;
+			Node* cur = new Node(list2.head->data);
+			Node* temp = list2.head;
+			head = cur;
+			while (temp->next)
+			{
+				temp = temp->next;
+				cur->next = new Node(temp->data);
+				cur = cur->next;
+			}
 		}
+		else
+			head = NULL;
 	}
-	else
-		head = NULL;
 	return *this;
 }
 
 bool List::operator==(const List& list2) const
 {
+
 	bool res = true;
-	Node* cur1 = head;
-	Node* cur2 = list2.head;
-	if (cur1 != cur2 && cur1 != NULL && cur2 != NULL)
+	if (head != list2.head)
 	{
-		while (cur1->next && cur2->next && res)
+		Node* cur1 = head;
+		Node* cur2 = list2.head;
+		if (cur1 != cur2 && cur1 != NULL && cur2 != NULL)
 		{
-			if (cur1->data != cur2->data)
-				res = false;
-			else
+			while (cur1->next && cur2->next && res)
 			{
-				cur1 = cur1->next;
-				cur2 = cur2->next;
+				if (cur1->data != cur2->data)
+					res = false;
+				else
+				{
+					cur1 = cur1->next;
+					cur2 = cur2->next;
+				}
 			}
+			if (cur1->next || cur2->next)
+				res = false;
 		}
-		if (cur1->next || cur2->next)
-			res = false;
+		else
+			if (cur1 != cur2)
+				res = false;
 	}
-	else
-		if (cur1 != cur2)
-			res = false;
 	return res;
 }
 
