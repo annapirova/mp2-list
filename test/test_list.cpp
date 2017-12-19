@@ -91,11 +91,6 @@ TEST_F(EmptyList, cant_insert_after_for_empty_list)
   ASSERT_ANY_THROW(l.InsertAfter(p, 5));
 }
 
-TEST_F(EmptyList, can_delete_from_empty_list)
-{
-  ASSERT_NO_THROW(l.Delete(5));
-}
-
 TEST_F(EmptyList, delete_from_empty_list_is_correct)
 {
   l.Delete(5);
