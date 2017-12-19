@@ -46,6 +46,7 @@ List::List(const List& list2)
 	if (list2.head == NULL)
 	{
 		head = list2.head;
+		tail = head;
 	}
 	else
 	{
@@ -58,30 +59,35 @@ List::List(const List& list2)
 			tmp = tmp->next;
 			tmp2 = tmp2->next;
 		}
+		tail = tmp;
 	}
 }
 
 List& List::operator=(const List& list2)
 {
-	Clean();
-	if (list2.head == NULL)
+	if (this != &list2)
 	{
-		head = list2.head;
-		return *this;
-	}
-	else
-	{
-		head = new Node(list2.head->data, list2.head);
-		Node *tmp = head;
-		Node *tmp2 = list2.head->next;
-		while (tmp2 != NULL)
+		Clean();
+		if (list2.head == NULL)
 		{
-			tmp->next = new Node(tmp2->data, tmp2->next);
-			tmp = tmp->next;
-			tmp2 = tmp2->next;
+			head = list2.head;
+			return *this;
+		}
+		else
+		{
+			head = new Node(list2.head->data, list2.head);
+			Node *tmp = head;
+			Node *tmp2 = list2.head->next;
+			while (tmp2 != NULL)
+			{
+				tmp->next = new Node(tmp2->data, tmp2->next);
+				tmp = tmp->next;
+				tmp2 = tmp2->next;
+			}
 		}
 		return *this;
 	}
+	return *this;
 }
 
 List::~List()
@@ -318,15 +324,35 @@ List List::Merge(Node* node, const List& list2)
 
 List List::Merge(const List& list2)
 {
-	List A(*this);
-
-	Node* tmp = list2.head;
-	while (tmp != NULL)
+	if (head != NULL)
 	{
-		A.InsertToTail(tmp->data);
-		tmp = tmp->next;
+		List A(*this);
+
+		if (list2.head != NULL)
+		{
+			Node* tmp2 = A.tail;
+			tmp2->next = new Node(list2.head->data, list2.head->next);
+			tmp2 = tmp2->next;
+			Node* tmp = list2.head->next;
+
+			while (tmp != NULL)
+			{
+				tmp2->next = new Node(tmp->data, tmp->next);
+				tmp2 = tmp2->next;
+				tmp = tmp->next;
+			}
+			return A;
+		}
+		else
+		{
+			return A;
+		}
 	}
-	return A;
+	else
+	{
+		List A(list2);
+		return A;
+	}
 }
 
 bool List::operator==(const List& list2) const
@@ -378,4 +404,15 @@ ostream& operator<<(ostream& os, const List& l)
 		tmp = tmp->next;
 	}
 	return os;
+}
+
+Node* List::GetTail()
+{
+	Node* tmp = head;
+	while (tmp->next != NULL)
+	{
+		tmp = tmp->next;
+	}
+	tail = tmp;
+	return tail;
 }
