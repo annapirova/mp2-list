@@ -21,6 +21,8 @@ List::List(const Node& list2)
 	head = new Node(list2);
 }
 
+
+
 List & List::operator=(const List & list2)
 {
 	if (this != &list2)
@@ -40,6 +42,22 @@ List & List::operator=(const List & list2)
 		}
 	}
 	return *this;
+}
+
+List::~List()
+{
+	Node *temp = head;
+	Node *temp2 = head;
+	if (temp != NULL)
+	{
+		while (temp->next != NULL)
+		{
+			temp2 = temp->next;
+			delete temp;
+			temp = temp2;
+		}
+		delete temp;
+	}
 }
 
 void List::InsertToHead(const DataType& d)
@@ -271,5 +289,7 @@ Node & Node::operator=(const Node & next2)
 
 bool Node::operator==(const Node & node2) const
 {
-	return false;
+	if ((data == node2.data) && (next == node2.next))
+		return true;
+	else return false;
 }

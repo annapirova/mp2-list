@@ -31,20 +31,7 @@ public:
 	List(const Node &temp);
 	List(const List& list2);
 	List& operator=(const List& list2);
-	~List() {
-		Node *temp = head;
-		Node *temp2 = head;
-		if (temp != NULL)
-		{
-			while (temp->next != NULL)
-			{
-				temp2 = temp->next;
-				delete temp;
-				temp = temp2;
-			}
-			delete temp;
-		}
-	};
+	~List();
 
 	void InsertToHead(const DataType& d); // вставить элемент d первым
 	void InsertToTail(const DataType& d); // вставить элемент d последним
