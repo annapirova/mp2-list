@@ -6,16 +6,22 @@ using namespace std;
 
 typedef int DataType;
 
-struct Node
+class Node
 {
+public:
   DataType data;
   Node* next;
   // здесь могут быть конструкторы, методы, деструктор Node
 
-  Node(DataType d = 0, Node* n = NULL);
+  Node();
+  Node(const DataType d);
+  Node(const DataType &d, Node* n);
   Node(const Node& node2);
   bool operator==(const Node& node2) const;
+  Node& operator=(const Node& node2);
+  ~Node() {};
 };
+
 
 class List
 {
@@ -23,6 +29,7 @@ class List
   Node* head;
 public:
   List();
+  List(const Node &n);
   List(const List& list2);
   List& operator=(const List& list2);
   ~List();
@@ -40,8 +47,18 @@ public:
   List Merge(Node* node, const List& list2); // создать список3, добавив список2 в текущий список после указателя node  
   List Merge(const List& list2); // создать список3, добавив в конец текущего списка список2
 
-  friend ostream& operator<<(ostream& os, const List& l);
+  friend ostream& operator<<(ostream& os, const List& l)
+  {
+	  Node *h = l.head;
+	  while (h != NULL)
+	  {
+		  os << h->data << " ";
+		  h = h->next;
+	  }
+	  return os;
+  }
   bool operator==(const List& list2) const; // списки равны, если элементы в них идут в одинаковом порядке
+  bool operator!=(const List& list2) const;
 };
 
 #endif
