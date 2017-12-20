@@ -10,19 +10,18 @@ struct Node
 {
   DataType data;
   Node* next;
-  // здесь могут быть конструкторы, методы, деструктор Node
 
-  Node(DataType d = 0, Node* n = NULL);
-  Node(const Node& node2);
-  bool operator==(const Node& node2) const;
+  Node(DataType d = 0, Node* n = NULL) { data = d; next = n; }
+  Node(const Node& node2) { data = node2.data; next = NULL; }
+  bool operator==(const Node& node2) const { return (data == node2.data && next == node2.next); }
+  ~Node() {}
 };
 
 class List
 {
-  // любые поля
   Node* head;
 public:
-  List();
+  List() { head = NULL; }
   List(const List& list2);
   List& operator=(const List& list2);
   ~List();
@@ -33,7 +32,7 @@ public:
   void Delete(const DataType& d); // удалить звено со значением data = d
   Node* Search(const DataType& d); // найти указатель на звено со значением data = d
   void Clean(); // удалить все звенья
-  int GetSize(); // узнать число звеньев в списке
+  int GetSize() const; // узнать число звеньев в списке
   Node* GetHead(); // получить указатель на первое звено списка
 
   void Inverse(); // инвертировать список, т.е. звенья должны идти в обратном порядке
