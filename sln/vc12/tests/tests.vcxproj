@@ -64,6 +64,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
       <AdditionalDependencies>gtest.lib;list.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -99,8 +100,11 @@
   <ItemGroup>
     <ProjectReference Include="..\gtest\gtest.vcxproj">
       <Project>{60932afc-7808-48b7-b3bf-f2bc151c0065}</Project>
-      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\list\list.vcxproj">
       <Project>{f803d9b4-7fd5-4dd1-ba5f-7612315650e1}</Project>

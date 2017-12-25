@@ -78,6 +78,7 @@ TEST_F(EmptyList, can_insert_to_head_for_empty_list)
   EXPECT_EQ(NULL, l.GetHead()->next);
 }
 
+
 TEST_F(EmptyList, can_insert_to_tail_for_empty_list)
 {
   l.InsertToTail(5);
@@ -112,6 +113,7 @@ TEST_F(EmptyList, search_for_empty_list_is_correct)
   Node* p = l.Search(5);
   EXPECT_EQ(NULL, p);
 }
+
 
 TEST_F(EmptyList, can_clean_empty_list)
 {
@@ -558,3 +560,4 @@ TEST(List, inverse_of_one_node_list_is_correct)
   EXPECT_EQ(5, l.GetHead()->data);
   EXPECT_EQ(NULL, l.GetHead()->next);
 }
+ 
