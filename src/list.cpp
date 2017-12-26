@@ -20,8 +20,25 @@ List::List(const List& list2)
 
 List& List::operator=(const List& list2)
 {
-	List temp(list2);
-	head = temp.head;
+	if (this != &list2)
+	{
+		Clean();
+		/*List temp(list2);
+		head = temp.head;
+		return *this;*/
+		if (list2.head)
+		{
+			head = new Node(list2.head->data);
+			Node* temp = head;
+			Node* temp1 = list2.head->next;
+			while (temp1)
+			{
+				temp->next = new Node(temp1->data);
+				temp = temp->next;
+				temp1 = temp1->next;
+			}
+		}
+	}
 	return *this;
 }
 
@@ -50,12 +67,15 @@ void List::InsertToTail(const DataType& d)
 }
 
 void List::InsertAfter(Node* node, const DataType& d)
-{
-	if (node && head)
-	{
-		Node* temp = node->next;
-		node->next = new Node(d, temp);
-	}
+{ 
+		if (head)
+		{
+			if (node)
+			{
+				Node* temp = node->next;
+				node->next = new Node(d, temp);
+			}
+		}
 	else
 		throw "Error";
 }
@@ -108,12 +128,13 @@ void List::Clean()
 {
 	Node* temp = head;
 	Node* temp1;
-	while (temp)
-	{
-		temp1 = temp->next;
-		delete temp;
-		temp = temp1;
-	}
+		while (temp)
+		{
+			temp1 = temp->next;
+			delete temp;
+			temp = temp1;
+		}
+	head = NULL;
 }
 
 int List::GetSize()
@@ -154,38 +175,60 @@ void List::Inverse()
 
 List List::Merge(Node* node, const List& list2)
 {	
-	List temp(*this), temp0(list2);
+	List temp;
+	Node* temp1 = head;
 	if (head)
 	{
-		
-		Node* temp1 = temp.head;
-		while (temp1 != node)
+		temp.head = new Node(head->data);
+		Node* temp2 = temp.head;
+		while (temp1->next && temp1 != node)
 		{
+			temp2->next = new Node(temp1->next->data);
 			temp1 = temp1->next;
-		}
-		Node* temp2 = temp0.head;
-		temp1->next = temp2;
-		while (temp2)
-		{
 			temp2 = temp2->next;
 		}
-		temp2 = temp1->next;
+		if (temp1 == node)
+		{
+			if (list2.head)
+			{
+				Node* temp3 = list2.head;
+				while (temp3)
+				{
+					temp2->next = new Node(temp3->data);
+					temp3 = temp3->next;
+					temp2 = temp2->next;
+				}
+			}
+			while (temp1->next)
+			{
+				temp2->next = new Node(temp1->next->data);
+				temp1 = temp1->next;
+				temp2 = temp2->next;
+			}
+			temp2->next = NULL;
+		}
 	}
 	return temp;
 }
 
 List List::Merge(const List& list2)
 {
-	List temp(*this), temp0(list2);
+	List temp(*this);
 	if (head)
-	{
+	{	
 		Node* temp1 = temp.head;
-		while (temp1)
-		{
+		while (temp1->next)
 			temp1 = temp1->next;
+		Node* temp2 = list2.head;
+		while (temp2)
+		{
+			temp1->next = new Node(temp2->data);
+			temp1 = temp1->next;
+			temp2 = temp2->next;
 		}
-		temp1 = temp0.head;
+		temp1->next = NULL;
 	}
+	else temp = List(list2);
 	return temp;
 }
 
@@ -205,9 +248,9 @@ bool List::operator==(const List& list2) const
 	bool res = true;
 	Node* temp = head;
 	Node* temp1 = list2.head;
-	while (temp || head)
+	while (temp && temp1)
 	{
-		if (temp->data == temp1->data)
+		if (temp->data != temp1->data)
 		{
 			res = false;
 			break;
@@ -215,6 +258,8 @@ bool List::operator==(const List& list2) const
 		temp = temp->next;
 		temp1 = temp1->next;
 	}
+	if (temp != temp1)
+		res = false;
 	return res;
 }
 
