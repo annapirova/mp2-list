@@ -27,7 +27,18 @@ List::List()
 
 List::~List()
 {
-		
+	Node *t1=head;
+	Node *t2;
+	if (head!=NULL)
+	{
+		while (t1!=NULL)
+		{
+			t2=t1->next;
+			delete t1;
+			t1=t2;
+		}
+	head=NULL;
+	}	
 }
 
 List::List(const List& list2)
@@ -50,8 +61,26 @@ List::List(const List& list2)
 
 List &List::operator=(const List& list2)
 {
-	List t(list2);
-	head=t.head;
+	if (this != &list2)
+	{
+		Clean();
+		if (list2.head==NULL)
+			head=list2.head;
+
+		else
+		{
+			head = new Node(list2.head->data, list2.head);
+			Node *n1 = head;
+			Node *node2 = list2.head->next;
+			while (node2 != NULL)
+			{
+				n1->next = new Node(node2->data, node2->next);
+				n1 = n1->next;
+				node2 = node2->next;
+			}
+		}
+		
+	}
 	return *this;
 }
 
