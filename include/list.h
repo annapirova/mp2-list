@@ -10,19 +10,16 @@ struct Node
 {
   DataType data;
   Node* next;
-  // здесь могут быть конструкторы, методы, деструктор Node
-
-  Node(DataType d = 0, Node* n = NULL);
-  Node(const Node& node2);
-  bool operator==(const Node& node2) const;
+  Node(DataType d = 0, Node* n = NULL) { data = d; next = n; };
+  Node(const Node& node2) { data = node2.data; next = node2.next; };
+  bool operator==(const Node& node2) const { return (data == node2.data) && (next == node2.next); };
 };
 
 class List
 {
-  // любые поля
   Node* head;
 public:
-  List();
+	List() { head = NULL; };
   List(const List& list2);
   List& operator=(const List& list2);
   ~List();
