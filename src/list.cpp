@@ -21,7 +21,7 @@ List::List()
 
 List::~List()
 {
-	Node* tmp, *tmp1; // указатель-ходилка
+	Node* tmp, * tmp1; // указатель-ходилка
 	tmp = head;
 	tmp1 = tmp;
 	while (tmp1 != nullptr)
@@ -109,4 +109,47 @@ void List::Delete(const DataType& d)
 		else
 			prev = prev->next;
 	}
+}
+
+void List::Delete(const myiterator& it)
+{
+	Node* prev = head;
+	bool find = false;
+
+	if (head == it.p)
+	{
+		head = head->next;
+		delete prev;
+		find = true;
+	}
+
+	while (!find && prev->next != nullptr)
+	{
+		if (prev->next == it.p)
+		{
+			Node* tmp = prev->next;
+			prev->next = prev->next->next;
+			delete tmp;
+			find = true;
+		}
+		else
+		{
+			prev = prev->next;
+		}
+	}
+}
+
+ostream& operator<<(ostream& os, const List& l)
+{
+	if (!l.isEmpty())
+	{
+		Node* p = l.head;
+		while (p->next != nullptr)
+		{
+			os << p->data << ", ";
+			p = p->next;
+		}
+		os << p->data << endl;
+	}
+	return os;
 }
