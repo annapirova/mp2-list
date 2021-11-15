@@ -21,7 +21,7 @@ List::List()
 
 List::~List()
 {
-	Node* tmp, *tmp1; // óêàçàòåëü-õîäèëêà
+	Node* tmp, *tmp1; // ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ-Ñ…Ð¾Ð´Ð¸Ð»ÐºÐ°
 	tmp = head;
 	tmp1 = tmp;
 	while (tmp1 != nullptr)
@@ -36,7 +36,7 @@ void List::InsertToHead(const DataType& d)
 {
 	if (isEmpty())
 	{
-		head = new Node(d, nullptr); // ýòî ïåðâûé è åäèíñòâåííûé
+		head = new Node(d, nullptr); // ÑÑ‚Ð¾ Ð¿ÐµÑ€Ð²Ñ‹Ð¹ Ð¸ ÐµÐ´Ð¸Ð½ÑÑ‚Ð²ÐµÐ½Ð½Ñ‹Ð¹
 	}
 	else
 	{
@@ -48,18 +48,18 @@ void List::InsertToTail(const DataType& d)
 {
 	if (isEmpty())
 	{
-		head = new Node(d, nullptr); // ýòî ïåðâûé è åäèíñòâåííûé
+		head = new Node(d, nullptr); // ÑÑ‚Ð¾ Ð¿ÐµÑ€Ð²Ñ‹Ð¹ Ð¸ ÐµÐ´Ð¸Ð½ÑÑ‚Ð²ÐµÐ½Ð½Ñ‹Ð¹
 	}
 	else
 	{
 		Node* p = new Node(d, nullptr);
-		Node* tmp; // óêàçàòåëü-õîäèëêà
+		Node* tmp; // ÑƒÐºÐ°Ð·Ð°Ñ‚ÐµÐ»ÑŒ-Ñ…Ð¾Ð´Ð¸Ð»ÐºÐ°
 		tmp = head;
 		while (tmp->next != nullptr)
 		{
 			tmp = tmp->next;
 		}
-		// â èòîãå - tmp - ïîñëåäíèé
+		// Ð² Ð¸Ñ‚Ð¾Ð³Ðµ - tmp - Ð¿Ð¾ÑÐ»ÐµÐ´Ð½Ð¸Ð¹
 		tmp->next = p;
 	}
 }
@@ -82,17 +82,17 @@ void List::Clean()
 
 void List::Delete(const DataType& d)
 {
-	// íàéòè çíà÷åíèå
-	// íàéòè òîãî, êòî ïåðåä íèì
+	// Ð½Ð°Ð¹Ñ‚Ð¸ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ
+	// Ð½Ð°Ð¹Ñ‚Ð¸ Ñ‚Ð¾Ð³Ð¾, ÐºÑ‚Ð¾ Ð¿ÐµÑ€ÐµÐ´ Ð½Ð¸Ð¼
 	Node* prev = head;
 	Node* tmp;
 	bool find = false;
 
-	// äàííûå â ãîëîâå
+	// Ð´Ð°Ð½Ð½Ñ‹Ðµ Ð² Ð³Ð¾Ð»Ð¾Ð²Ðµ
 	if (head->data == d)
 	{
 		head = head->next;
-		delete prev; // ñåé÷àñ ýòî ãîëîâà
+		delete prev; // ÑÐµÐ¹Ñ‡Ð°Ñ ÑÑ‚Ð¾ Ð³Ð¾Ð»Ð¾Ð²Ð°
 		find = true;
 	}
 
@@ -100,7 +100,7 @@ void List::Delete(const DataType& d)
 	{
 		if (prev->next->data == d)
 		{
-			// prev->next - ýòî çâåíî
+			// prev->next - ÑÑ‚Ð¾ Ð·Ð²ÐµÐ½Ð¾
 			tmp = prev->next;
 			prev->next = prev->next->next; // tmp->next
 			delete tmp;
@@ -109,4 +109,44 @@ void List::Delete(const DataType& d)
 		else
 			prev = prev->next;
 	}
+}
+/*int List::Find(const DataType& d)
+{
+	// Ð½Ð°Ð¹Ñ‚Ð¸ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ
+	// Ð½Ð°Ð¹Ñ‚Ð¸ Ñ‚Ð¾Ð³Ð¾, ÐºÑ‚Ð¾ Ð¿ÐµÑ€ÐµÐ´ Ð½Ð¸Ð¼
+	Node* tmp;
+	bool find = false;
+	myiterator i=head;
+
+	while (!find && (i.p->next != nullptr))
+	{
+		if (i.p->next->data == d)
+		{
+			find = true;
+		}
+		else
+			i.p = i.p->next;
+	}
+	return i.p;
+}*/
+myiterator List::Search(const DataType& d)
+{
+	myiterator unit = head;
+	while (unit.p)
+	{
+		if (unit.p->data == d)
+			return unit;
+		unit = unit.p->next;
+	}
+	return NULL;
+}
+ostream& operator<<(ostream& os, const List& l)
+{
+	Node* temp = l.head;
+	while (temp)
+	{
+		cout << temp->data << ' ';
+		temp = temp->next;
+	}
+	return os;
 }

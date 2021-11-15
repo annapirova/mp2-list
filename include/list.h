@@ -50,9 +50,90 @@ public:
   DataType ViewHead() { return head->data;  }
   void InsertToTail(const DataType& d); // вставить элемент d последним
   void Clean(); // удалить все звенья  
-  void Delete(const DataType& d); // удалить звено со значением data = d				
+  void Delete(const DataType& d);// удалить звено со значением data = d
+  int Find(const DataType& d);				
   myiterator begin() { return myiterator(head); };
-				
+  myiterator Search(const DataType& d);
+  friend ostream& operator<<(ostream& os, const List& l);
+
+  void Delete(const myiterator& start, const myiterator& finish) 
+  {
+	  Node* that = head;
+	  Node* prev;
+	  Node* tmp;
+	  myiterator i=head->next;
+	  while (i.p != start.p)
+	  {
+		  i = that->next->next;
+		  that = that->next;
+	  }
+
+	  prev = that;
+	  that = that->next;
+	  while (i.p != finish.p)
+	  {
+		  tmp = that;
+		  that = that->next; 
+		  delete tmp;
+		  i= that->next;
+	  };
+	  tmp = that;
+	  that = that->next; 
+	  delete tmp;
+	  i = that->next;
+	  tmp = that;
+	  that = that->next;
+	  delete tmp;
+	  i = that->next;
+
+	  prev->next = that;
+
+
+  };
+
+
+  
+
+  void MadeUnique() 
+  {
+
+	  Node* tmp;
+	  Node* prev=head;
+	  myiterator i=nullptr;
+	  myiterator j=nullptr;
+	  if (head == nullptr)
+		  return;
+
+	  i = head->next;
+	  j = head;
+	  while (i.p != nullptr)
+	  {
+		  j = head;
+		  
+		  while ((i.p != j.p) && (j.p->data != i.p->data))
+		  {
+			  j.p = j.p->next;
+		  }
+		  if (i.p != j.p)
+		  {
+			  prev->next = i.p->next;
+			  tmp = i.p;
+			  i.p = i.p->next; 
+			  delete tmp;
+
+			  
+		  }
+		  else
+		  {
+			  prev = prev->next;
+			  i = i.p->next;
+		  }
+	  }
+  }; // исключить повторяющиеся звенья
+
+
+
+
   //void InsertAfter(Node* node, const DataType& d); // вставить элемент d после звена node
   //Node* Search(const DataType& d); // найти указатель на звено со значением data = d
   //int GetSize(); // узнать число звеньев в списке
