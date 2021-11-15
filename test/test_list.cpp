@@ -5,24 +5,20 @@ TEST(Node, can_create_node)
 {
   ASSERT_NO_THROW(Node a);
 }
-
 TEST(List, can_create_list)
 {
   ASSERT_NO_THROW(List l);
 }
-
 TEST(List, new_list_is_empty)
 {
 	List l;
 	EXPECT_EQ(true, l.isEmpty());
 }
-
 TEST(List, can_add_elem_to_empty_list)
 {
 	List l;
 	l.InsertToHead(4);
 }
-
 TEST(List, can_add_elem_to_notempty_list)
 {
 	List l;
@@ -30,14 +26,12 @@ TEST(List, can_add_elem_to_notempty_list)
 	l.InsertToHead(5);
 	EXPECT_EQ(5, l.ViewHead());
 }
-
 TEST(List, can_add_to_tail_1)
 {
 	List l;
 	l.InsertToTail(4);
 	EXPECT_EQ(4, l.ViewHead());
 }
-
 TEST(List, can_add_to_tail_2)
 {
 	List l;
@@ -47,13 +41,11 @@ TEST(List, can_add_to_tail_2)
 	EXPECT_EQ(4, l.ViewHead());
 	// как проверить последний?
 }
-
 TEST(List, can_clean_empty_list)
 {
 	List l;
 	ASSERT_NO_THROW(l.Clean());
 }
-
 TEST(List, can_clean2)
 {
 	List l;
@@ -61,7 +53,6 @@ TEST(List, can_clean2)
 	l.Clean();
 	EXPECT_EQ(true, l.isEmpty());
 }
-
 TEST(List, can_clean3)
 {
 	List l;
@@ -71,14 +62,12 @@ TEST(List, can_clean3)
 	l.Clean();
 	EXPECT_EQ(true, l.isEmpty());
 }
-
 TEST(List, iterator1)
 {
 	List l;
 	l.InsertToHead(4);
 	ASSERT_NO_THROW(myiterator h = l.begin());
 }
-
 TEST(List, iterator2)
 {
 	List l;
@@ -86,7 +75,6 @@ TEST(List, iterator2)
 	myiterator h = l.begin();
 	EXPECT_EQ(4, *h);
 }
-
 TEST(List, iterator3)
 {
 	List l;
@@ -96,8 +84,6 @@ TEST(List, iterator3)
 	++h;
 	EXPECT_EQ(5, *h);
 }
-
-
 TEST(List, can_delete1)
 {
 	List l;
@@ -111,7 +97,6 @@ TEST(List, can_delete1)
 	++it;
 	EXPECT_EQ(6, *it);
 }
-
 TEST(List, can_delete2)
 {
 	List l;
@@ -124,7 +109,6 @@ TEST(List, can_delete2)
 	myiterator it = l.begin();
 	EXPECT_EQ(5, *it);
 }
-
 TEST(List, can_delete3)
 {
 	List l;
@@ -134,7 +118,66 @@ TEST(List, can_delete3)
 
 	ASSERT_NO_THROW(l.Delete(7));
 }
+TEST(List, can_cout_empty_list)
+{
+	List l;
+	ASSERT_NO_THROW(cout << l);
+}
+TEST(List, can_cout_list)
+{
+	List l;
+	l.InsertToTail(4);
+	l.InsertToTail(5);
+	l.InsertToTail(6);
 
+	ASSERT_NO_THROW(cout<<l);
+}
+TEST(List, can_delete2_1) //удалить элементы из середины
+{
+	List l;
+	l.InsertToTail(4);
+	l.InsertToTail(5);
+	l.InsertToTail(6);
+	l.InsertToTail(9);
+	l.InsertToTail(10);
+	l.InsertToTail(14);
+	l.InsertToTail(15);
+	myiterator it1 = l.begin(), it2 = l.begin();
+	++it1; 
+	++it2; ++it2; ++it2; ++it2;
+	l.Delete(it1, it2);
+	myiterator it3 = l.begin();
+	++it3; ++it3;
+	EXPECT_EQ(10, *it3);
+}
+TEST(List, can_delete2_2) //удалить элементы с начала
+{
+	List l;
+	l.InsertToTail(4);
+	l.InsertToTail(5);
+	l.InsertToTail(6);
+	l.InsertToTail(9);
+	l.InsertToTail(10);
+	l.InsertToTail(14);
+	l.InsertToTail(15);
+	myiterator it1 = l.begin(), it2 = l.begin();
+	++it2; ++it2; ++it2; ++it2;
+	l.Delete(it1, it2);
+	myiterator it3 = l.begin();
+	EXPECT_EQ(10, *it3);
+}
+TEST(List, can_delete2_3) //удалить элементы до конца
+{
+	List l;
+	l.InsertToTail(4);
+	l.InsertToTail(5);
+	l.InsertToTail(6);
+	l.InsertToTail(9);
+	myiterator it1 = l.begin(), it2 = l.begin();
+	++it1;
+	++it2; ++it2; ++it2; ++it2;
+	ASSERT_NO_THROW(l.Delete(it1, it2););
+}
 /*
 class EmptyList : public testing::Test
 {

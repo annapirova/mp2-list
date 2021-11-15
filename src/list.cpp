@@ -3,12 +3,10 @@
 Node::Node(DataType d, Node* n) : data(d), next(n)
 {
 }
-
 Node::Node(const Node& node2)
 {
 	data = node2.data;
 }
-
 bool Node::operator==(const Node& node2) const
 {
 	return (data == node2.data);
@@ -18,7 +16,6 @@ List::List()
 {
 	head = nullptr;
 }
-
 List::~List()
 {
 	Node* tmp, *tmp1; // указатель-ходилка
@@ -31,7 +28,6 @@ List::~List()
 		tmp = tmp1;
 	}
 }
-
 void List::InsertToHead(const DataType& d)
 {
 	if (isEmpty())
@@ -43,7 +39,6 @@ void List::InsertToHead(const DataType& d)
 		head = new Node(d, head);
 	}
 }
-
 void List::InsertToTail(const DataType& d)
 {
 	if (isEmpty())
@@ -63,7 +58,6 @@ void List::InsertToTail(const DataType& d)
 		tmp->next = p;
 	}
 }
-
 void List::Clean()
 {
 	Node* tmp;
@@ -79,21 +73,17 @@ void List::Clean()
 	delete head;
 	head = nullptr;
 }
-
 void List::Delete(const DataType& d)
-{
-	// найти значение
-	// найти того, кто перед ним
+{  // найти значение
+   // найти того, кто перед ним
 	Node* prev = head;
 	Node* tmp;
 	bool find = false;
-
 	// данные в голове
 	if (head->data == d)
-	{
-		head = head->next;
-		delete prev; // сейчас это голова
-		find = true;
+	{ head = head->next;
+	  delete prev; // сейчас это голова
+	  find = true;
 	}
 
 	while (!find && (prev->next != nullptr))
@@ -109,4 +99,41 @@ void List::Delete(const DataType& d)
 		else
 			prev = prev->next;
 	}
+}
+void List::Delete(const myiterator& start, const myiterator& finish)
+{   //не хватает проверки коректности итераторов
+	Node* prt;
+	Node* t;
+	Node* tmp;
+	prt = head;
+
+	for (myiterator iter = begin(); iter != start; ++iter)
+	{ prt = prt->next; }
+	t = prt;
+	for (myiterator iter = start; iter != finish; ++iter)
+	{ t = t->next; }
+	
+	if (start == begin()) { head = t; }
+
+	bool flag = 1;
+	while((flag) && (prt->next != nullptr))
+	{ 	tmp = prt->next;
+		prt->next = prt->next->next; // tmp->next
+		if (prt->next == t) { flag = 0; }
+		else{ delete tmp; }
+	}
+
+	
+
+
+}
+ostream& operator<<(ostream& os, const List& l)
+{
+	Node* p = l.head;
+	while( p!=NULL)
+	{ os<<p->data<<" ";
+	  p = p->next;
+	}
+	os << endl;
+	return os;
 }
