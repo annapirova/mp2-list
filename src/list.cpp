@@ -110,3 +110,64 @@ void List::Delete(const DataType& d)
 			prev = prev->next;
 	}
 }
+// найти указатель на звено со значением data = d
+myiterator List::Search(const DataType& d)
+{
+	Node* tmp = head;
+	myiterator it = begin();
+		while((tmp != NULL) && (tmp->data == d)) 
+		{
+			if (tmp == NULL)
+			{
+				return it;
+			}
+			else
+			{
+				tmp = tmp->next;
+				++it;
+			}
+	}
+		return it;
+}
+
+// инвертировать список, т.е. звенья должны идти в обратном порядке
+void List::Inverse()
+{
+	Node* tmp1 = head;
+	Node* tmp2;
+	Node* tmp3;
+	if (head != NULL)
+	{
+		tmp2 = head->next;
+		head->next = NULL;
+		if (tmp2 != NULL)
+		{
+			tmp3 = tmp2->next;
+			while (tmp3 != NULL)
+			{
+				tmp2->next = tmp1;
+				tmp1 = tmp2;
+				tmp2 = tmp3;
+				tmp3 = tmp3->next;
+			}
+			tmp2->next = tmp1;
+			head = tmp2;
+		}
+	}
+}
+
+bool List:: operator ==(const List& list2) const
+{
+
+	Node* tmp1 = head;
+	Node* tmp2 = list2.head;
+	while ((tmp1 != NULL) && (tmp2 != NULL) && (tmp1->data == tmp2->data))
+	{
+		tmp1 = tmp1->next;
+		tmp2 = tmp2->next;
+	}
+	if ((tmp1 == NULL) && (tmp2 == NULL)) 
+		return true;
+	else
+		return false;
+}

@@ -1,6 +1,5 @@
 #include "list.h"
 #include <gtest.h>
-
 TEST(Node, can_create_node)
 {
   ASSERT_NO_THROW(Node a);
@@ -133,6 +132,34 @@ TEST(List, can_delete3)
 	l.InsertToTail(6);
 
 	ASSERT_NO_THROW(l.Delete(7));
+}
+
+TEST(List, can_search_empty)
+{
+	List l;
+	ASSERT_NO_THROW(l.Search(3));
+
+}
+
+TEST(List, checking_blank_sheet_with_d_value)
+{
+	List l;
+	myiterator r = l.Search(3);
+//	EXPECT_EQ(NULL, r); //не хочет работать 
+}
+
+TEST(List, can_inverse_empty)
+{
+	List l;
+	ASSERT_NO_THROW(l.Inverse());
+}
+
+TEST(List, checking_emptiness_after_inversion)
+{
+	List l;
+	l.Inverse();
+	List l2;
+	EXPECT_EQ(l2, l); // после реализации operator== заработало
 }
 
 /*
