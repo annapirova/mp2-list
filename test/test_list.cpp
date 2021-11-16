@@ -1,138 +1,280 @@
 #include "list.h"
-#include <gtest.h>
+//#include <gtest.h>
+#include "gtest/gtest.h"
 
-TEST(Node, can_create_node)
-{
-  ASSERT_NO_THROW(Node a);
+TEST(Node, can_create_node) {
+    ASSERT_NO_THROW(Node a);
 }
 
-TEST(List, can_create_list)
-{
-  ASSERT_NO_THROW(List l);
+TEST(List, can_create_list) {
+    ASSERT_NO_THROW(List l);
 }
 
-TEST(List, new_list_is_empty)
-{
-	List l;
-	EXPECT_EQ(true, l.isEmpty());
+TEST(List, new_list_is_empty) {
+    List l;
+    EXPECT_EQ(true, l.isEmpty());
 }
 
-TEST(List, can_add_elem_to_empty_list)
-{
-	List l;
-	l.InsertToHead(4);
+TEST(List, can_add_elem_to_empty_list) {
+    List l;
+    l.InsertToHead(4);
 }
 
-TEST(List, can_add_elem_to_notempty_list)
-{
-	List l;
-	l.InsertToHead(4);
-	l.InsertToHead(5);
-	EXPECT_EQ(5, l.ViewHead());
+TEST(List, can_add_elem_to_notempty_list) {
+    List l;
+    l.InsertToHead(4);
+    l.InsertToHead(5);
+    EXPECT_EQ(5, l.ViewHead());
 }
 
-TEST(List, can_add_to_tail_1)
-{
-	List l;
-	l.InsertToTail(4);
-	EXPECT_EQ(4, l.ViewHead());
+TEST(List, can_add_to_tail_1) {
+    List l;
+    l.InsertToTail(4);
+    EXPECT_EQ(4, l.ViewHead());
 }
 
-TEST(List, can_add_to_tail_2)
-{
-	List l;
-	l.InsertToTail(4);
-	l.InsertToTail(5);
-	l.InsertToTail(6);
-	EXPECT_EQ(4, l.ViewHead());
-	// как проверить последний?
+TEST(List, can_add_to_tail_2) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(5);
+    l.InsertToTail(6);
+//	EXPECT_EQ(4, l.ViewHead());
+    EXPECT_EQ(6, l.ViewTail());
+    // как проверить последний?
 }
 
-TEST(List, can_clean_empty_list)
-{
-	List l;
-	ASSERT_NO_THROW(l.Clean());
+TEST(List, can_clean_empty_list) {
+    List l;
+    ASSERT_NO_THROW(l.Clean());
 }
 
-TEST(List, can_clean2)
-{
-	List l;
-	l.InsertToTail(4);
-	l.Clean();
-	EXPECT_EQ(true, l.isEmpty());
+TEST(List, can_clean2) {
+    List l;
+    l.InsertToTail(4);
+    l.Clean();
+    EXPECT_EQ(true, l.isEmpty());
 }
 
-TEST(List, can_clean3)
-{
-	List l;
-	l.InsertToTail(4);
-	l.InsertToTail(5);
-	l.InsertToTail(6);
-	l.Clean();
-	EXPECT_EQ(true, l.isEmpty());
+TEST(List, can_clean3) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(5);
+    l.InsertToTail(6);
+    l.Clean();
+    EXPECT_EQ(true, l.isEmpty());
 }
 
-TEST(List, iterator1)
-{
-	List l;
-	l.InsertToHead(4);
-	ASSERT_NO_THROW(myiterator h = l.begin());
+TEST(List, iterator1) {
+    List l;
+    l.InsertToHead(4);
+    ASSERT_NO_THROW(myiterator h = l.begin());
 }
 
-TEST(List, iterator2)
-{
-	List l;
-	l.InsertToHead(4);
-	myiterator h = l.begin();
-	EXPECT_EQ(4, *h);
+TEST(List, iterator2) {
+    List l;
+    l.InsertToHead(4);
+    myiterator h = l.begin();
+    EXPECT_EQ(4, *h);
 }
 
-TEST(List, iterator3)
-{
-	List l;
-	l.InsertToHead(4);
-	l.InsertToTail(5);
-	myiterator h = l.begin();
-	++h;
-	EXPECT_EQ(5, *h);
+TEST(List, iterator3) {
+    List l;
+    l.InsertToHead(4);
+    l.InsertToTail(5);
+    myiterator h = l.begin();
+    ++h;
+    EXPECT_EQ(5, *h);
 }
 
+TEST(List, can_delete1) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(5);
+    l.InsertToTail(6);
 
-TEST(List, can_delete1)
-{
-	List l;
-	l.InsertToTail(4);
-	l.InsertToTail(5);
-	l.InsertToTail(6);
+    l.Delete(5);
 
-	l.Delete(5);
-
-	myiterator it = l.begin();
-	++it;
-	EXPECT_EQ(6, *it);
+    myiterator it = l.begin();
+    ++it;
+    EXPECT_EQ(6, *it);
 }
 
-TEST(List, can_delete2)
-{
-	List l;
-	l.InsertToTail(4);
-	l.InsertToTail(5);
-	l.InsertToTail(6);
+TEST(List, can_delete2) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(5);
+    l.InsertToTail(6);
 
-	l.Delete(4);
+    l.Delete(4);
 
-	myiterator it = l.begin();
-	EXPECT_EQ(5, *it);
+    myiterator it = l.begin();
+    EXPECT_EQ(5, *it);
 }
 
-TEST(List, can_delete3)
-{
-	List l;
-	l.InsertToTail(4);
-	l.InsertToTail(5);
-	l.InsertToTail(6);
+TEST(List, can_delete3) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(5);
+    l.InsertToTail(6);
 
-	ASSERT_NO_THROW(l.Delete(7));
+    ASSERT_NO_THROW(l.Delete(7));
+}
+
+TEST(List, can_delete_all_empty_list) {
+    List l;
+    ASSERT_NO_THROW(l.DeleteAll(2));
+}
+
+TEST(List, can_delete_all_one_elem_list) {
+    List l;
+    l.InsertToTail(2);
+    ASSERT_NO_THROW(l.DeleteAll(2));
+}
+
+TEST(List, delete_all_not_included_element) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(5);
+    l.InsertToTail(4);
+    l.InsertToTail(2);
+    l.InsertToTail(4);
+    l.InsertToTail(7);
+    l.InsertToTail(4);
+    l.DeleteAll(3);
+    myiterator it = l.begin();
+    EXPECT_EQ(4, *it);
+    ++it;
+    EXPECT_EQ(5, *it);
+    ++it;
+    EXPECT_EQ(4, *it);
+    ++it;
+    EXPECT_EQ(2, *it);
+    ++it;
+    EXPECT_EQ(4, *it);
+    ++it;
+    EXPECT_EQ(7, *it);
+    ++it;
+    EXPECT_EQ(4, *it);
+    ++it;
+}
+
+TEST(List, can_delete_all_with_all_eq_value_list) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    ASSERT_NO_THROW(l.DeleteAll(4));
+}
+
+TEST(List, can_delete_all) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(5);
+    l.InsertToTail(4);
+    l.InsertToTail(2);
+    l.InsertToTail(4);
+    l.InsertToTail(7);
+    l.InsertToTail(4);
+    ASSERT_NO_THROW(l.DeleteAll(4));
+}
+
+TEST(List, delete_all) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(5);
+    l.InsertToTail(4);
+    l.InsertToTail(2);
+    l.InsertToTail(4);
+    l.InsertToTail(7);
+    l.InsertToTail(4);
+    l.DeleteAll(4);
+    myiterator it = l.begin();
+    EXPECT_EQ(5, *it);
+    ++it;
+    EXPECT_EQ(2, *it);
+    ++it;
+    EXPECT_EQ(7, *it);
+    ++it;
+}
+
+TEST(List, can_make_uniq_empty_list) {
+    List l;
+    ASSERT_NO_THROW(l.MakeUniq());
+}
+
+TEST(List, can_make_uniq_one_elem_list) {
+    List l;
+    l.InsertToTail(3);
+    ASSERT_NO_THROW(l.MakeUniq());
+}
+
+TEST(List, make_uniq_one_elem_list) {
+    List l;
+    l.InsertToTail(3);
+    l.MakeUniq();
+    EXPECT_EQ(3, l.ViewHead());
+}
+
+TEST(List, can_make_uniq_with_all_eq_value_list) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    ASSERT_NO_THROW(l.MakeUniq());
+}
+
+TEST(List, make_uniq_with_all_eq_value_list) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.InsertToTail(4);
+    l.MakeUniq();
+    EXPECT_EQ(4, l.ViewHead());
+}
+
+TEST(List, can_make_uniq) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(5);
+    l.InsertToTail(4);
+    l.InsertToTail(2);
+    l.InsertToTail(4);
+    l.InsertToTail(7);
+    l.InsertToTail(4);
+    ASSERT_NO_THROW(l.MakeUniq());
+}
+
+TEST(List, make_uniq) {
+    List l;
+    l.InsertToTail(4);
+    l.InsertToTail(5);
+    l.InsertToTail(4);
+    l.InsertToTail(2);
+    l.InsertToTail(4);
+    l.InsertToTail(7);
+    l.InsertToTail(4);
+    l.MakeUniq();
+    myiterator it = l.begin();
+    EXPECT_EQ(4, *it);
+    ++it;
+    EXPECT_EQ(5, *it);
+    ++it;
+    EXPECT_EQ(2, *it);
+    ++it;
+    EXPECT_EQ(7, *it);
+    ++it;
 }
 
 /*
