@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/list.h
+iostream
+-
+
+/root/mp2-labs/mp2-list/src/list.cpp
+list.h
+/root/mp2-labs/mp2-list/src/list.h
+map
+-
+
