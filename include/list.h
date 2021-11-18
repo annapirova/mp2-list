@@ -31,38 +31,40 @@ public:
 		return *this;
 	};
 
+	myiterator& operator++(int)
+	{
+		myiterator it(p);
+		p = p->next;
+		return it;
+	};
+
 	friend class List;
 };
 
 class List
 {
-	// любые поля
 	Node* head;
 public:
 	List();
-
-	bool isEmpty() const { return (head == nullptr); }
-	//  List(const List& list2);
-	//  List& operator=(const List& list2);
+	List(const List& list2);
+	List& operator=(const List& list2);
 	~List();
-
+	bool isEmpty() const { return (head == nullptr); }
 	void InsertToHead(const DataType& d); // вставить элемент d первым
 	DataType ViewHead() { return head->data; }
 	void InsertToTail(const DataType& d); // вставить элемент d последним
 	void Clean(); // удалить все звенья
 	void Delete(const DataType& d); // удалить звено со значением data = d
-	myiterator begin() { return myiterator(head); };
+	myiterator begin() const { return myiterator(head); };
 	void Delete(const myiterator& it);
-
-	//void InsertAfter(Node* node, const DataType& d); // вставить элемент d после звена node
-	//Node* Search(const DataType& d); // найти указатель на звено со значением data = d
-	//int GetSize(); // узнать число звеньев в списке
-	//Node* GetHead(); // получить указатель на первое звено списка
-
-	//void Inverse(); // инвертировать список, т.е. звенья должны идти в обратном порядке
-	//List Merge(Node* node, const List& list2); // создать список3, добавив список2 в текущий список после указателя node
-	//List Merge(const List& list2); // создать список3, добавив в конец текущего списка список2
-
+	void InsertAfter(const myiterator& it, const DataType& d); // вставить элемент d после звена node
+	myiterator Search(const DataType& d); // найти указатель на звено со значением data = d
+	void Inverse(); // инвертировать список, т.е. звенья должны идти в обратном порядке
+	List Merge(const myiterator& start, const List& list2); // создать список3, добавив список2 в текущий список после указателя node
+	void MergeWith(const myiterator& start, const List& list2);
+	void MadeUnique();
+	//void Reordering(); // пересортировка списка: создать новый список, в кот сначала четные, потом нечетные звенья
+	bool isCycle();
 	friend ostream& operator<<(ostream& os, const List& l);
 	//bool operator==(const List& list2) const; // списки равны, если элементы в них идут в одинаковом порядке
 };

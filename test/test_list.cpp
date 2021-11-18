@@ -189,14 +189,52 @@ TEST(List, can_output)
 	l.InsertToTail(2);
 	l.InsertToTail(3);
 
-	ASSERT_NO_THROW(std::cout << l);
+	ASSERT_NO_THROW(std::cout << l << endl);
 }
 
 TEST(List, can_output_empty)
 {
 	List l;
 
-	ASSERT_NO_THROW(std::cout << l);
+	ASSERT_NO_THROW(std::cout << l << endl);
+}
+
+TEST(List, can_insert_after_iterator)
+{
+	List l;
+	l.InsertToTail(0);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+
+	myiterator it1 = l.begin();
+	it1++;
+	l.InsertAfter(it1, 100);
+	it1++;
+	EXPECT_EQ(100, *it1);
+}
+
+TEST(List, can_search)
+{
+	List l;
+	l.InsertToTail(0);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+
+	myiterator it = l.Search(2);
+	EXPECT_EQ(2, *it);
+}
+
+TEST(List, can_search_not)
+{
+	List l;
+	l.InsertToTail(0);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+
+	ASSERT_NO_THROW(myiterator it = l.Search(100));
 }
 
 /*
