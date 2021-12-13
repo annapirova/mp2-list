@@ -11,6 +11,7 @@ int main()
     list.InsertToTail(9);
     list.InsertToTail(5);
     list.InsertToTail(3);
+    list.Inverse();
 /*    int a_i;
     while (1) {
         cin >> a_i;
