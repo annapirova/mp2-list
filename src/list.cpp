@@ -19,6 +19,31 @@ List::List()
 	head = nullptr;
 }
 
+List& List::operator=(const List& list2)
+{
+	if (this != &list2)
+	{
+		Clean();
+		if (list2.head == NULL)
+		{
+			head = NULL;
+		}
+		else
+		{
+			head = new Node(list2.head->data, list2.head->next);
+			Node* tmp = head;
+			Node* tmp2 = list2.head->next;
+			while (tmp2 != NULL)
+			{
+				tmp->next = new Node(tmp2->data, tmp2->next);
+				tmp = tmp->next;
+				tmp2 = tmp2->next;
+			}
+		}
+	}
+	return *this;
+}
+
 List::~List()
 {
 	Node* tmp, *tmp1; // указатель-ходилка
@@ -156,9 +181,20 @@ void List::Inverse()
 	}
 }
 
+ostream& operator<<(ostream& os, const List& l)
+{
+	List list;
+	Node* tmp = list.head;
+	while (tmp != NULL)
+	{
+		cout << tmp->data << " ";
+		tmp = tmp->next;
+	}
+	return os;
+}
+
 bool List:: operator ==(const List& list2) const
 {
-
 	Node* tmp1 = head;
 	Node* tmp2 = list2.head;
 	while ((tmp1 != NULL) && (tmp2 != NULL) && (tmp1->data == tmp2->data))
