@@ -162,6 +162,99 @@ TEST(List, checking_emptiness_after_inversion)
 	EXPECT_EQ(l2, l); // после реализации operator== заработало
 }
 
+TEST(List, checking_two_lists_after_inversion_1)
+{
+	List l;
+	List l2;
+	l.InsertToTail(3);
+	l.InsertToTail(14);
+	l.Inverse();
+	l2.InsertToTail(14);
+	l2.InsertToTail(3);
+	EXPECT_EQ(l, l2);
+}
+
+TEST(List, checking_two_lists_after_inversion_2)
+{
+	List l;
+	List l2;
+	l.InsertToTail(1);
+	l.InsertToTail(5);
+	l.InsertToTail(7);
+	l.InsertToTail(13);
+	l.Inverse();
+	l2.InsertToTail(13);
+	l2.InsertToTail(7);
+	l2.InsertToTail(5);
+	l2.InsertToTail(1);
+	EXPECT_EQ(l2, l);
+}
+
+TEST(List, can_compare_two_not_empty_lists)
+{
+	List l;
+	List l2;
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+	l2.InsertToTail(4);
+	l2.InsertToTail(5);
+	ASSERT_NO_THROW(l == l2);
+}
+
+TEST(List, compare_two_not_equivalent_lists)
+{
+	List l;
+	List l2;
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+	l2.InsertToTail(4);
+	l2.InsertToTail(5);
+	l2.InsertToHead(1);
+	EXPECT_EQ(false, l == l2);
+}
+
+TEST(List, compare_two_not_equivalent_lists_with_bigger_list_1)
+{
+	List l;
+	List l2;
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l2.InsertToTail(4);
+	EXPECT_EQ(false, l == l2);
+}
+
+TEST(List, compare_two_not_equivalent_lists_with_bigger_list_2)
+{
+	List l;
+	List l2;
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l2.InsertToTail(4);
+	EXPECT_EQ(false, l2 == l);
+}
+
+TEST(List, compare_list_with_empty_list_1)
+{
+	List l;
+	List l2;
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	EXPECT_EQ(false, l == l2);
+}
+
+TEST(List, compare_list_with_empty_list_2)
+{
+	List l;
+	List l2;
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	EXPECT_EQ(false, l2 == l);
+}
+
+
+
 /*
 class EmptyList : public testing::Test
 {
