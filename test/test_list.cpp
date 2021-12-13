@@ -178,7 +178,7 @@ TEST(List, checking_two_lists_after_inversion_2)
 {
 	List l;
 	List l2;
-	l.InsertToTail(1);
+	l.InsertToTail(2);
 	l.InsertToTail(5);
 	l.InsertToTail(7);
 	l.InsertToTail(13);
@@ -186,7 +186,7 @@ TEST(List, checking_two_lists_after_inversion_2)
 	l2.InsertToTail(13);
 	l2.InsertToTail(7);
 	l2.InsertToTail(5);
-	l2.InsertToTail(1);
+	l2.InsertToTail(2);
 	EXPECT_EQ(l2, l);
 }
 
