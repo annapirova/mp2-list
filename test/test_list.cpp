@@ -20,6 +20,7 @@ TEST(List, can_add_elem_to_empty_list)
 {
 	List l;
 	l.InsertToHead(4);
+	ASSERT_NO_THROW(l);
 }
 
 TEST(List, can_add_elem_to_notempty_list)
@@ -44,7 +45,15 @@ TEST(List, can_add_to_tail_2)
 	l.InsertToTail(5);
 	l.InsertToTail(6);
 	EXPECT_EQ(4, l.ViewHead());
-	// как проверить последний?
+}
+
+TEST(List, can_add_to_tail_3)
+{
+	List l;
+	l.InsertToTail(4);
+	l.InsertToTail(5);
+	l.InsertToTail(6);
+	EXPECT_EQ(6, l.ViewTail());
 }
 
 TEST(List, can_clean_empty_list)
@@ -145,7 +154,7 @@ TEST(List, checking_blank_sheet_with_d_value)
 {
 	List l;
 	myiterator r = l.Search(3);
-//	EXPECT_EQ(NULL, r); //не хочет работать 
+//	EXPECT_EQ(NULL, r);
 }
 
 TEST(List, can_inverse_empty)

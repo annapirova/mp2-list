@@ -54,6 +54,18 @@ public:
   { 
 	  return head->data;  
   }
+  myiterator end() {
+	  auto tmp = head;
+	  while (tmp->next != nullptr) {
+		  tmp = tmp->next;
+	  }
+	  return myiterator(tmp);
+  }
+
+  DataType ViewTail() { 
+	  return *end(); 
+  }
+
   void InsertToTail(const DataType& d); // вставить элемент d последним
   void Clean(); // удалить все звенья  
   void Delete(const DataType& d); // удалить звено со значением data = d				
