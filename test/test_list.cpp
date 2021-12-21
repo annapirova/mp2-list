@@ -3,12 +3,12 @@
 
 TEST(Node, can_create_node)
 {
-  ASSERT_NO_THROW(Node a);
+	ASSERT_NO_THROW(Node a);
 }
 
 TEST(List, can_create_list)
 {
-  ASSERT_NO_THROW(List l);
+	ASSERT_NO_THROW(List l);
 }
 
 TEST(List, new_list_is_empty)
@@ -97,7 +97,6 @@ TEST(List, iterator3)
 	EXPECT_EQ(5, *h);
 }
 
-
 TEST(List, can_delete1)
 {
 	List l;
@@ -133,6 +132,109 @@ TEST(List, can_delete3)
 	l.InsertToTail(6);
 
 	ASSERT_NO_THROW(l.Delete(7));
+}
+
+TEST(List, can_delete1_iterator)
+{
+	List l;
+	l.InsertToTail(0);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+
+	myiterator it1 = l.begin();
+	++it1;
+	l.Delete(it1);
+
+	myiterator it2 = l.begin();
+	++it2;
+
+	EXPECT_EQ(2, *it2);
+}
+
+TEST(List, can_delete2_iterator)
+{
+	List l;
+	l.InsertToTail(0);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+
+	myiterator it1 = l.begin();
+	l.Delete(it1);
+
+	myiterator it2 = l.begin();
+
+	EXPECT_EQ(1, *it2);
+}
+
+TEST(List, can_delete3_iterator)
+{
+	List l;
+	l.InsertToTail(0);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+
+	myiterator it1 = l.begin();
+	l.Delete(it1);
+	ASSERT_NO_THROW(l.Delete(it1));
+}
+
+TEST(List, can_output)
+{
+	List l;
+	l.InsertToTail(0);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+
+	ASSERT_NO_THROW(std::cout << l << endl);
+}
+
+TEST(List, can_output_empty)
+{
+	List l;
+
+	ASSERT_NO_THROW(std::cout << l << endl);
+}
+
+TEST(List, can_insert_after_iterator)
+{
+	List l;
+	l.InsertToTail(0);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+
+	myiterator it1 = l.begin();
+	it1++;
+	l.InsertAfter(it1, 100);
+	it1++;
+	EXPECT_EQ(100, *it1);
+}
+
+TEST(List, can_search)
+{
+	List l;
+	l.InsertToTail(0);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+
+	myiterator it = l.Search(2);
+	EXPECT_EQ(2, *it);
+}
+
+TEST(List, can_search_not)
+{
+	List l;
+	l.InsertToTail(0);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+
+	ASSERT_NO_THROW(myiterator it = l.Search(100));
 }
 
 /*
@@ -181,12 +283,12 @@ TEST_F(EmptyList, two_empty_lists_are_eq)
 TEST_F(EmptyList, can_assign_two_empty_lists)
 {
   List l2;
-  ASSERT_NO_THROW(l = l2); 
+  ASSERT_NO_THROW(l = l2);
 }
 
 TEST_F(EmptyList, can_assign_empty_list_to_itself)
 {
-  ASSERT_NO_THROW(l = l); 
+  ASSERT_NO_THROW(l = l);
 }
 
 TEST_F(EmptyList, assign_two_empty_lists_is_correct)
@@ -283,7 +385,7 @@ TEST_F(EmptyList, can_merge_after_ptr_for_two_empty_lists)
 TEST_F(EmptyList, merge_after_ptr_for_two_empty_lists_is_correct)
 {
   List l2;
-  List l3 = l.Merge(l.GetHead(), l2); 
+  List l3 = l.Merge(l.GetHead(), l2);
   EXPECT_EQ(l2, l3);
 }
 
@@ -296,9 +398,9 @@ protected:
 public:
   ThreeNodesList()
   {
-    l.InsertToTail(1);
-    l.InsertToTail(2);
-    l.InsertToTail(3);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
   }
   ~ThreeNodesList() {};
 };
@@ -435,7 +537,6 @@ TEST_F(ThreeNodesList, can_delete_not_a_member_from_not_empty_list2)
   EXPECT_EQ(NULL, l.GetHead()->next->next->next);
 }
 
-
 TEST_F(ThreeNodesList, can_search_for_not_empty_list)
 {
   ASSERT_NO_THROW(l.Search(3));
@@ -492,16 +593,15 @@ TEST_F(ThreeNodesList, not_empty_list_is_correct_after_inverse)
 
 TEST_F(ThreeNodesList, can_assign_not_empty_list_to_itself)
 {
-  ASSERT_NO_THROW(l = l); 
+  ASSERT_NO_THROW(l = l);
 }
-
 
 TEST_F(ThreeNodesList, can_assign_two_not_empty_lists)
 {
   List l2;
   l2.InsertToTail(22);
   l2.InsertToTail(33);
-  ASSERT_NO_THROW(l = l2); 
+  ASSERT_NO_THROW(l = l2);
 }
 
 TEST_F(ThreeNodesList, list_after_assign_has_its_own_memory)
@@ -533,7 +633,6 @@ TEST_F(ThreeNodesList, compare_two_eq_lists_is_correct)
   EXPECT_EQ(true, l == l2);
 }
 
-
 class TwoListsTest : public testing::Test
 {
 protected:
@@ -544,11 +643,11 @@ protected:
 public:
   TwoListsTest()
   {
-    l.InsertToTail(1);
-    l.InsertToTail(2);
-    l.InsertToTail(3);
-    l2.InsertToTail(11);
-    l2.InsertToTail(22);
+	l.InsertToTail(1);
+	l.InsertToTail(2);
+	l.InsertToTail(3);
+	l2.InsertToTail(11);
+	l2.InsertToTail(22);
   }
 
   ~TwoListsTest() {}
@@ -581,7 +680,7 @@ TEST_F(TwoListsTest, assign_empty_list_to_not_empty_is_correct)
 
 TEST_F(TwoListsTest, can_compare_two_not_empty_lists)
 {
-  ASSERT_NO_THROW(l == l2); 
+  ASSERT_NO_THROW(l == l2);
 }
 
 TEST_F(TwoListsTest, compare_two_not_eq_lists_of_eq_size)
@@ -620,7 +719,7 @@ TEST_F(TwoListsTest, merge_two_not_empty_lists_is_correct)
   List l3 = l.Merge(l2);
   List res;
   res.InsertToTail(1);
-  res.InsertToTail(2);  
+  res.InsertToTail(2);
   res.InsertToTail(3);
   res.InsertToTail(11);
   res.InsertToTail(22);
@@ -642,38 +741,37 @@ TEST_F(TwoListsTest, merge_not_empty_and_empty_list_left)
 
 TEST_F(TwoListsTest, can_merge_after_ptr_two_not_empty_lists)
 {
-    ASSERT_NO_THROW(l.Merge(l.GetHead()->next, l2));
+	ASSERT_NO_THROW(l.Merge(l.GetHead()->next, l2));
 }
 
 TEST_F(TwoListsTest, merge_after_ptr_two_not_empty_lists_is_correct)
 {
-    List l3 = l.Merge(l.GetHead()->next, l2);
-    List res;
-    res.InsertToTail(1);
-    res.InsertToTail(2);  
-    res.InsertToTail(11);
-    res.InsertToTail(22);
-    res.InsertToTail(3);
-    EXPECT_EQ(res, l3);
+	List l3 = l.Merge(l.GetHead()->next, l2);
+	List res;
+	res.InsertToTail(1);
+	res.InsertToTail(2);
+	res.InsertToTail(11);
+	res.InsertToTail(22);
+	res.InsertToTail(3);
+	EXPECT_EQ(res, l3);
 }
 
 TEST_F(TwoListsTest, merge_after_ptr_for_not_empty_list_and_empty_list_is_correct)
 {
-    List l3 = l.Merge(l.GetHead()->next, z);
-    EXPECT_EQ(l, l3);
+	List l3 = l.Merge(l.GetHead()->next, z);
+	EXPECT_EQ(l, l3);
 }
 
 TEST_F(TwoListsTest, can_merge_after_null_ptr_for_not_empty_list)
 {
-    ASSERT_NO_THROW(l.Merge(NULL, l2));
+	ASSERT_NO_THROW(l.Merge(NULL, l2));
 }
 
 TEST_F(TwoListsTest, merge_after_null_ptr_for_not_empty_list_is_correct)
 {
-    List l3 = l.Merge(NULL, l2);
-    EXPECT_EQ(l, l3);
+	List l3 = l.Merge(NULL, l2);
+	EXPECT_EQ(l, l3);
 }
-
 
 TEST(List, inverse_of_one_node_list_is_correct)
 {
@@ -683,6 +781,5 @@ TEST(List, inverse_of_one_node_list_is_correct)
   EXPECT_EQ(5, l.GetHead()->data);
   EXPECT_EQ(NULL, l.GetHead()->next);
 }
-
 
 */

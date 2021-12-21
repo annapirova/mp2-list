@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\kento\source\repos\oleg-w570\mp2-list\out\build\CMakeFiles\7b5912a61351bdb82f4933b889ba4ac6\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{2F74DD72-D896-3806-A221-AB0D9C91A21B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

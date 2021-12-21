@@ -1,0 +1,5 @@
+C:/Users/kento/source/repos/oleg-w570/mp2-list/out/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/kento/source/repos/oleg-w570/mp2-list/out/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/kento/source/repos/oleg-w570/mp2-list/out/build/src/CMakeFiles/List.dir
+C:/Users/kento/source/repos/oleg-w570/mp2-list/out/build/gtest/CMakeFiles/gtest.dir
+C:/Users/kento/source/repos/oleg-w570/mp2-list/out/build/test/CMakeFiles/test_List.dir
